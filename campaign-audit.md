@@ -26,6 +26,8 @@
 - Color provenance: candidate-original and documented
 - Typography decision: documented; no proprietary font files
 - Visual concept: Engagement Load Path
+- Signature renderer: native WebGPU first, WebGL2 GPU fallback, Canvas 2D resilience fallback
+- Mobile renderer: dedicated semantic composition; no GPU context initialization
 - Candidate-facing brand continuity across site and PDFs: passed
 
 ## Interaction and UX
@@ -36,6 +38,8 @@
 - Rapid final-selection authority: passed
 - Keyboard control: passed
 - Runtime intermediate motion and stable settlement: passed
+- Physical deformation and frame-difference regression: passed
+- Replay control and final-request-wins transition cancellation: passed
 - Reduced-motion semantic settlement: passed
 - Mobile navigation: passed
 - Value before ask: passed
@@ -66,12 +70,6 @@
 
 ## Publication status
 
-- Campaign state: complete
-- Live site: `https://russelldudek.github.io/MDC/`
-- GitHub Pages homepage: HTTP 200 with expected candidate-vision content
-- Live resume and cover-letter routes: passed
-- Live resume PDF binary delivery: passed
-- Exact live verification token: `mdc-live-29857294380-1`
-- Audited candidate-content SHA: `ed20afbec973a51705cb5bb9ec3b33feea996fb4`
-- Exact-live receipt commit: `5183fda6f1fbe69c7ff763e66e694309a12fd6c1`
-- Documentation-only audit correction does not alter candidate-facing HTML, CSS, JavaScript, brand assets or PDFs
+- Campaign state: revised locally; live publication verification pending
+- Prior live verification: expired by material hero and motion correction
+- Corrected source: local browser, motion, responsive, reduced-motion, confidentiality and document checks passed
