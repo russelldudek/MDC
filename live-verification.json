@@ -1,6 +1,12 @@
 {
   "status": "passed",
+  "token": "mdc-live-29857294380-1",
   "live_site": "https://russelldudek.github.io/MDC/",
-  "verified_by": "GitHub-hosted publication diagnostic",
-  "source_sha": "aa574658abd3e78310865f73d467c917ed343c78"
+  "verified_routes": [
+    "index.html",
+    "resume.html",
+    "cover-letter.html",
+    "docs/Russell-Dudek-COO-AI-Adoption-Resume.pdf"
+  ],
+  "audited_candidate_content_sha": "ed20afbec973a51705cb5bb9ec3b33feea996fb4"
 }
