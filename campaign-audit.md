@@ -66,4 +66,12 @@
 
 ## Publication status
 
-Complete readable source and generated artifacts were published to `main` by the repository build. Live GitHub Pages verification remains required before the campaign is classified as fully complete.
+- Campaign state: complete
+- Live site: `https://russelldudek.github.io/MDC/`
+- GitHub Pages homepage: HTTP 200 with expected candidate-vision content
+- Live resume and cover-letter routes: passed
+- Live resume PDF binary delivery: passed
+- Exact live verification token: `mdc-live-29857294380-1`
+- Audited candidate-content SHA: `ed20afbec973a51705cb5bb9ec3b33feea996fb4`
+- Exact-live receipt commit: `5183fda6f1fbe69c7ff763e66e694309a12fd6c1`
+- Documentation-only audit correction does not alter candidate-facing HTML, CSS, JavaScript, brand assets or PDFs
