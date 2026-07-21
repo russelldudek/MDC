@@ -9,8 +9,7 @@
 
 ## Authoritative sources
 
-- MDC Executive Search LinkedIn company page: https://www.linkedin.com/company/mdc-executive-search-boca/
-- Official LinkedIn-hosted company image URL: recorded in `source-notes.md`; the image bytes were not retrievable through the build environment.
+- MDC Executive Search LinkedIn company page: public description, tagline, recruiting category, headquarters and company identity.
 - Supplied job description: role title, responsibilities, compensation, reporting line, requirements and first-year success definition.
 
 ## Logo decision
@@ -24,3 +23,9 @@ Because the confidential employer is undisclosed and no authoritative client bra
 ## Candidate-facing integrity
 
 The campaign does not identify or imply an undisclosed client. It does not claim employer sponsorship or approval. It labels all company-specific operating ideas as hypotheses for discovery.
+
+## Visual and motion translation
+
+The role-specific visual system treats professional-services operations as a physical load-bearing system rather than a dashboard. The hero uses a dark technical field, copper promise beam, six accountable load points, a margin-and-cash foundation, and a founder-attention brace that appears only under insufficient operating support.
+
+The signature scene is rendered with a native WebGPU-first pipeline, with WebGL2 and Canvas 2D fallbacks. Scenario changes deform the promise beam according to phase-specific operating stress, recolor the accountable supports, route one load carrier through the complete path, and settle on the resulting operating state. The motion is candidate-original and is not represented as MDC or confidential-client brand motion. Mobile and reduced-motion modes preserve the same semantics without initializing a heavyweight GPU scene.
