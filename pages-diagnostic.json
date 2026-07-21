@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "pages_get_exit": 0,
+  "pages_config_exit": 1,
+  "pages_build_exit": 0,
+  "live_http_status": "200",
+  "live_content_match": true,
+  "live_site": "https://russelldudek.github.io/MDC/",
+  "pages_get_error": "",
+  "pages_config_error": "gh: Resource not accessible by integration (HTTP 403)\n",
+  "pages_build_error": ""
+}
