@@ -1,0 +1,32 @@
+:root {
+  /* MDC recognition layer - source-sampled from public LinkedIn identity where available. */
+  --brand-ink: #171b22;
+  --brand-navy: #243449;
+  --brand-slate: #556474;
+  --brand-paper: #f6f3ec;
+  --brand-white: #ffffff;
+
+  /* Candidate-original operating-system palette for the Engagement Load Path. */
+  --campaign-copper: #b56a3b;
+  --campaign-copper-dark: #7f4325;
+  --campaign-moss: #69765b;
+  --campaign-moss-light: #aab39d;
+  --campaign-alert: #a94d45;
+  --campaign-gold: #c39a4b;
+  --campaign-calm: #43736c;
+  --campaign-cloud: #e7e8e5;
+
+  --text: var(--brand-ink);
+  --muted: #66707a;
+  --line: #cfd3d3;
+  --surface: #fbfaf7;
+  --surface-strong: #f0ede5;
+  --shadow: 0 22px 70px rgba(23, 27, 34, 0.12);
+  --shadow-soft: 0 10px 32px rgba(23, 27, 34, 0.08);
+  --radius-sm: 8px;
+  --radius-md: 18px;
+  --radius-lg: 30px;
+  --max: 1240px;
+  --serif: Georgia, 'Times New Roman', serif;
+  --sans: 'Aptos', 'Segoe UI', Helvetica, Arial, sans-serif;
+}
