@@ -35,19 +35,82 @@
 </div>
 <div aria-labelledby="compiler-title" class="compiler-visual">
 <canvas aria-label="GPU visualization of a client promise compiling into executable operating work" id="compiler-canvas"></canvas>
+<div class="compiler-semantic-object" aria-hidden="true">
+<svg viewBox="0 0 360 520" role="presentation">
+<defs>
+<linearGradient id="compilerFacetLeft" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#79e0d5" stop-opacity=".62"/>
+<stop offset="1" stop-color="#174455" stop-opacity=".18"/>
+</linearGradient>
+<linearGradient id="compilerFacetRight" x1="1" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#f0a065" stop-opacity=".48"/>
+<stop offset="1" stop-color="#18485a" stop-opacity=".14"/>
+</linearGradient>
+<radialGradient id="compilerCore" cx="50%" cy="50%" r="50%">
+<stop offset="0" stop-color="#effffb" stop-opacity=".95"/>
+<stop offset=".22" stop-color="#65d6ca" stop-opacity=".70"/>
+<stop offset="1" stop-color="#65d6ca" stop-opacity="0"/>
+</radialGradient>
+<filter id="compilerGlow" x="-80%" y="-80%" width="260%" height="260%">
+<feGaussianBlur stdDeviation="8" result="blur"/>
+<feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<ellipse class="artifact-aura" cx="180" cy="263" rx="132" ry="202"/>
+<g class="contract-layer layer-commitment">
+<path class="facet-left" d="M180 52 L120 115 L180 130 Z"/>
+<path class="facet-right" d="M180 52 L240 115 L180 130 Z"/>
+</g>
+<g class="contract-layer layer-scope">
+<path class="facet-left" d="M120 115 L180 130 L180 176 L92 170 Z"/>
+<path class="facet-right" d="M180 130 L240 115 L268 170 L180 176 Z"/>
+</g>
+<g class="contract-layer layer-capacity">
+<path class="facet-left" d="M92 170 L180 176 L180 230 L74 225 Z"/>
+<path class="facet-right" d="M180 176 L268 170 L286 225 L180 230 Z"/>
+</g>
+<g class="contract-layer layer-execution">
+<path class="facet-left" d="M74 225 L180 230 L180 282 L78 280 Z"/>
+<path class="facet-right" d="M180 230 L286 225 L282 280 L180 282 Z"/>
+</g>
+<g class="contract-layer layer-evidence">
+<path class="facet-left" d="M78 280 L180 282 L180 338 L96 335 Z"/>
+<path class="facet-right" d="M180 282 L282 280 L264 335 L180 338 Z"/>
+</g>
+<g class="contract-layer layer-renewal">
+<path class="facet-left" d="M96 335 L180 338 L180 458 L126 390 Z"/>
+<path class="facet-right" d="M180 338 L264 335 L234 390 L180 458 Z"/>
+</g>
+<g class="artifact-wireframe">
+<path d="M180 52 L120 115 L92 170 L74 225 L78 280 L96 335 L126 390 L180 458 L234 390 L264 335 L282 280 L286 225 L268 170 L240 115 Z"/>
+<path d="M180 52 L180 458"/>
+<path d="M120 115 L240 115 M92 170 L268 170 M74 225 L286 225 M78 280 L282 280 M96 335 L264 335 M126 390 L234 390"/>
+<path d="M120 115 L180 176 L268 170 M92 170 L180 230 L286 225 M74 225 L180 282 L282 280 M78 280 L180 338 L264 335 M96 335 L180 458 L234 390"/>
+</g>
+<g class="artifact-core" filter="url(#compilerGlow)">
+<ellipse cx="180" cy="260" rx="42" ry="72" fill="url(#compilerCore)"/>
+<circle cx="180" cy="260" r="7"/>
+</g>
+<g class="fault-mark fault-start"><path d="M218 119 L262 91 L276 132 L237 151 Z"/></g>
+<g class="fault-mark fault-scope"><path d="M180 130 L166 198 L188 250 L171 322 L184 390"/></g>
+<g class="fault-mark fault-agent"><circle cx="180" cy="260" r="58"/><circle cx="180" cy="260" r="78"/></g>
+<g class="fault-mark fault-forecast"><path d="M103 188 L273 170 M82 246 L289 224 M91 304 L274 282 M111 358 L246 335"/></g>
+<circle class="artifact-seal" cx="180" cy="478" r="4"/>
+</svg>
+</div>
 <div class="compiler-label" id="compiler-title">Promise Compiler</div>
-<div class="compiler-input"><span>Raw commitment</span><strong id="compiler-input">Measured outcome accepted</strong></div>
+<div class="compiler-input"><span>Operating signal</span><strong id="compiler-input">Measured outcome accepted</strong></div>
 <div aria-live="polite" class="compiler-output">
-<span class="compile-kicker">Compile result</span>
+<span class="compile-kicker">Operating decision</span>
 <strong id="compile-status">Executable</strong>
 <p id="compiler-verdict">Release founder attention — decision owner: COO / engagement lead. Evidence required: outcome, margin, and renewal record.</p>
 </div>
 <div aria-label="Promise compilation scenarios" class="compiler-controls" role="tablist">
-<button aria-selected="true" data-compiler-scenario="baseline" role="tab" type="button"><span>01</span>Renewal ready</button>
-<button aria-selected="false" data-compiler-scenario="new-logo" role="tab" type="button"><span>02</span>New logo won</button>
-<button aria-selected="false" data-compiler-scenario="scope" role="tab" type="button"><span>03</span>Scope change</button>
-<button aria-selected="false" data-compiler-scenario="agent" role="tab" type="button"><span>04</span>Agent drift</button>
-<button aria-selected="false" data-compiler-scenario="forecast" role="tab" type="button"><span>05</span>Forecast miss</button>
+<button aria-selected="true" data-compiler-scenario="baseline" role="tab" type="button"><span>01</span>Renewal decision</button>
+<button aria-selected="false" data-compiler-scenario="start-readiness" role="tab" type="button"><span>02</span>Start-readiness gap</button>
+<button aria-selected="false" data-compiler-scenario="scope" role="tab" type="button"><span>03</span>Scope change request</button>
+<button aria-selected="false" data-compiler-scenario="agent" role="tab" type="button"><span>04</span>Agent evidence failure</button>
+<button aria-selected="false" data-compiler-scenario="forecast" role="tab" type="button"><span>05</span>Forecast / cash mismatch</button>
 </div>
 <button aria-label="Replay promise compilation" id="replay-compiler" type="button">
 <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>

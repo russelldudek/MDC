@@ -8,43 +8,43 @@
   const scenarios = {
     baseline: {
       index: 0,
-      input: 'Measured outcome accepted',
-      status: 'Executable',
-      decision: 'Release founder attention',
-      owner: 'COO / engagement lead',
-      evidence: 'outcome, margin, and renewal record'
+      input: 'Outcome evidence accepted',
+      status: 'Release to renewal',
+      decision: 'Renew or expand the engagement',
+      owner: 'COO + account lead',
+      evidence: 'accepted outcome, margin, and renewal terms'
     },
-    'new-logo': {
+    'start-readiness': {
       index: 1,
-      input: 'New client commitment signed',
-      status: 'Conditional',
-      decision: 'Run the pre-start compile review',
-      owner: 'COO + sales + delivery',
-      evidence: 'signed outcome, bounded scope, and staffing record'
+      input: 'Work signed before delivery is ready',
+      status: 'Hold start',
+      decision: 'Do not begin until the operating contract closes',
+      owner: 'COO + delivery lead',
+      evidence: 'signed outcome, bounded scope, and staffed capacity'
     },
     scope: {
       index: 2,
-      input: 'Client need changed midstream',
-      status: 'Recompile required',
-      decision: 'Pause, price, and reset authority',
-      owner: 'COO / commercial owner',
-      evidence: 'change record and revised economics'
+      input: 'Client request exceeds agreed scope',
+      status: 'Reprice scope',
+      decision: 'Pause and reauthorize the changed commitment',
+      owner: 'COO + commercial owner',
+      evidence: 'change record, revised price, and delivery impact'
     },
     agent: {
       index: 3,
-      input: 'Agent output no longer dependable',
-      status: 'Autonomy rejected',
-      decision: 'Hold autonomy; restore evidence',
+      input: 'Agent output failed evaluation',
+      status: 'Return to human-led',
+      decision: 'Hold autonomy until evidence is restored',
       owner: 'agent owner + delivery lead',
-      evidence: 'evaluation trace, override, and release decision'
+      evidence: 'failed evaluation, human override, and release criteria'
     },
     forecast: {
       index: 4,
-      input: 'Forecast and actuals diverged',
-      status: 'Forecast rejected',
-      decision: 'Reconcile pipeline to capacity and cash',
+      input: 'Pipeline, capacity, and cash diverged',
+      status: 'Reforecast',
+      decision: 'Reset the operating plan to actual capacity and cash',
       owner: 'COO + finance + sales',
-      evidence: 'variance root cause and corrected forecast'
+      evidence: 'variance cause, capacity plan, and corrected cash forecast'
     }
   };
 
