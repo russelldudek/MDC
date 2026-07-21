@@ -40,6 +40,8 @@ jobs:
             docs/Russell-Dudek-COO-AI-Adoption-Resume.pdf
           )
 
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds" >/tmp/pages-build.json
+
           passed=0
           for attempt in $(seq 1 60); do
             ok=1
@@ -62,8 +64,8 @@ jobs:
               && grep -Fq 'createWebGL2Backend' /tmp/mdc-live/hero-gpu-fallbacks.js \
               && grep -Fq '.engagement-system' /tmp/mdc-live/hero-2026.css \
               && grep -Fq 'rendererMode' /tmp/mdc-live/app.js \
-              && grep -Fq 'View Cover Letter' /tmp/mdc-live/resume.html \
-              && grep -Fq 'View Resume' /tmp/mdc-live/cover-letter.html \
+              && grep -Fq '>Cover letter<' /tmp/mdc-live/resume.html \
+              && grep -Fq '>Resume<' /tmp/mdc-live/cover-letter.html \
               && test "$(head -c 4 /tmp/mdc-live/docs/Russell-Dudek-COO-AI-Adoption-Resume.pdf)" = '%PDF'; then
               passed=1
               break
@@ -126,7 +128,7 @@ jobs:
           git commit -m 'Finalize live GPU campaign verification'
           git push origin HEAD:main
 
-          gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds" >/tmp/pages-build.json
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds" >/tmp/pages-receipt-build.json
           receipt=0
           for attempt in $(seq 1 60); do
             if curl -fsSL --max-time 30 "${BASE}live-verification.json" | grep -Fq "$TOKEN" \
