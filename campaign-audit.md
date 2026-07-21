@@ -70,6 +70,10 @@
 
 ## Publication status
 
-- Campaign state: revised locally; live publication verification pending
-- Prior live verification: expired by material hero and motion correction
-- Corrected source: local browser, motion, responsive, reduced-motion, confidentiality and document checks passed
+- Campaign state: corrected source complete
+- Live site: `https://russelldudek.github.io/MDC/`
+- Prior exact-live receipt: expired by material hero and motion correction
+- Corrected local browser, motion, responsive, reduced-motion, confidentiality, link, PDF, and contact checks: passed
+- Corrected GPU source and candidate routes: published to public `main`
+- Independent exact-live byte verification: not completed during this correction session
+- Temporary publication workflow: removed from final `main`
