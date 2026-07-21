@@ -3,7 +3,10 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chief Operating Officer - AI Adoption | Russell Dudek</title>
 <meta name="description" content="Independent candidate vision by Russell Dudek for Chief Operating Officer - AI Adoption.">
-<link rel="stylesheet" href="brand-tokens.css"><link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="brand-tokens.css"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="hero-2026.css">
+<script defer src="hero-gpu-core.js"></script>
+<script defer src="hero-gpu-fallbacks.js"></script>
+<script defer src="hero-gpu.js"></script>
 <script defer src="app.js"></script>
 </head><body class="home">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -38,12 +41,42 @@
       <span>Remote · U.S.</span><span>$250K-$300K + bonus</span><span>Reports to Founder/CEO</span>
     </div>
   </div>
-  <div class="load-lab" aria-labelledby="load-title">
-    <div class="lab-head">
-      <div><span class="micro">Interactive operating artifact</span><h2 id="load-title">Engagement Load Path</h2></div>
-      <button class="reset-control" id="reset-scenario">Reset</button>
+  <div class="engagement-system" aria-labelledby="load-title">
+    <div class="system-head">
+      <div>
+        <span class="micro">GPU operating simulation</span>
+        <h2 id="load-title">Engagement Load Path</h2>
+      </div>
+      <div class="system-tools">
+        <button class="system-control" id="replay-scenario" type="button">Replay</button>
+        <button class="system-control" id="reset-scenario" type="button">Reset</button>
+      </div>
     </div>
-    <p class="lab-intro">Select a real operating condition. The frame shows what must carry the client promise, where founder attention enters, and what evidence is required before the engagement can bear its own load.</p>
+    <p class="system-intro">Apply an operating condition. The promise physically loads the system; weak contracts deform, accountability shifts, and founder attention appears only where the engagement cannot yet carry itself.</p>
+
+    <div class="scene-shell" id="frame-stage" data-state="baseline" data-founder="released" aria-live="polite">
+      <canvas id="load-canvas" aria-label="GPU simulation of the engagement load path from promise to renewal"></canvas>
+      <div class="scene-scan" aria-hidden="true"></div>
+      <div class="scene-copy">
+        <span>Client promise</span>
+        <strong id="promise-label">Measured outcome accepted</strong>
+      </div>
+      <div class="scene-vitals" aria-label="System condition">
+        <span>Margin + cash <strong id="foundation-state">Protected</strong></span>
+        <span>Founder attention <strong id="founder-state">Released</strong></span>
+      </div>
+      <div class="renderer-badge" id="renderer-mode">Initializing GPU path</div>
+    </div>
+
+    <div class="phase-strip" aria-label="Load path phase states">
+      <div class="phase-node is-strong" data-member="promise"><span>01</span><strong>Promise</strong><small id="promise-state">Accepted</small></div>
+      <div class="phase-node is-strong" data-member="scope"><span>02</span><strong>Scope</strong><small id="scope-state">Closed</small></div>
+      <div class="phase-node is-strong" data-member="capacity"><span>03</span><strong>Capacity</strong><small id="capacity-state">Balanced</small></div>
+      <div class="phase-node is-strong" data-member="delivery"><span>04</span><strong>Run</strong><small id="delivery-state">On plan</small></div>
+      <div class="phase-node is-strong" data-member="proof"><span>05</span><strong>Proof</strong><small id="proof-state">Accepted</small></div>
+      <div class="phase-node is-strong" data-member="renewal"><span>06</span><strong>Renew</strong><small id="renewal-state">Earned</small></div>
+    </div>
+
     <div class="scenario-tabs" role="tablist" aria-label="Engagement scenarios">
       <button role="tab" aria-selected="true" data-scenario="baseline">Renewal ready</button>
       <button role="tab" aria-selected="false" data-scenario="new-logo">New logo won</button>
@@ -51,19 +84,7 @@
       <button role="tab" aria-selected="false" data-scenario="agent">Agent drift</button>
       <button role="tab" aria-selected="false" data-scenario="forecast">Forecast miss</button>
     </div>
-    <div class="frame-stage" id="frame-stage" data-state="baseline" aria-live="polite">
-      <div class="client-load"><span>CLIENT PROMISE</span><b id="promise-label">Measured outcome accepted</b></div>
-      <div class="support-grid">
-        <div class="support" data-member="scope"><i></i><strong>Scope</strong><span id="scope-state">Closed</span></div>
-        <div class="support" data-member="capacity"><i></i><strong>Capacity</strong><span id="capacity-state">Balanced</span></div>
-        <div class="support" data-member="delivery"><i></i><strong>Delivery</strong><span id="delivery-state">On plan</span></div>
-        <div class="support" data-member="proof"><i></i><strong>Proof</strong><span id="proof-state">Accepted</span></div>
-        <div class="support" data-member="renewal"><i></i><strong>Renewal</strong><span id="renewal-state">Earned</span></div>
-      </div>
-      <div class="foundation"><span>MARGIN + CASH</span><b id="foundation-state">Protected</b></div>
-      <div class="founder-brace" id="founder-brace"><span>FOUNDER ATTENTION</span></div>
-      <div class="load-pulse" aria-hidden="true"></div>
-    </div>
+
     <div class="decision-readout">
       <div><span>Operating decision</span><strong id="decision">Release founder attention</strong></div>
       <div><span>Named owner</span><strong id="owner">COO / engagement lead</strong></div>
