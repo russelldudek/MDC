@@ -3,9 +3,13 @@
 ## Candidate experience
 
 - `index.html` - candidate vision and interactive Engagement Load Path
-- `styles.css` - responsive, document, motion, and print system
+- `styles.css` - shared responsive, document, and print system
+- `hero-2026.css` - isolated GPU hero composition, phase states, mobile semantic path, and reduced-motion treatment
 - `brand-tokens.css` - documented candidate-original tokens for the confidential-client presentation
-- `app.js` - navigation, PDF-download, scenario-state, keyboard, rapid-selection, and reduced-motion controller
+- `app.js` - navigation, PDF-download, atomic scenario-state, keyboard, rapid-selection, renderer orchestration, and reduced-motion controller
+- `hero-gpu-core.js` - native WebGPU shader renderer and scenario transition engine
+- `hero-gpu-fallbacks.js` - WebGL2 shader and Canvas 2D resilient renderers
+- `hero-gpu.js` - backend selection and bootstrap orchestration
 
 ## Application documents
 
