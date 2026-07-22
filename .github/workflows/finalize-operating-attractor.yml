@@ -1,0 +1,114 @@
+name: Finalize Operating Attractor Field
+
+on:
+  push:
+    paths:
+      - .github/workflows/finalize-operating-attractor.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: finalize-operating-attractor
+  cancel-in-progress: false
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install bundle when staging remains
+        shell: bash
+        run: |
+          set -euo pipefail
+          if compgen -G '.qa-bundle/chunk-*.b64' > /dev/null; then
+            cat .qa-bundle/chunk-*.b64 > /tmp/mdc-attractor.b64
+            base64 --decode /tmp/mdc-attractor.b64 > /tmp/mdc-attractor.tar.gz
+            rm -rf /tmp/mdc-attractor-stage
+            mkdir -p /tmp/mdc-attractor-stage
+            tar -xzf /tmp/mdc-attractor.tar.gz -C /tmp/mdc-attractor-stage
+            if test -f /tmp/mdc-attractor-stage/index.html; then
+              source_root=/tmp/mdc-attractor-stage
+            else
+              index_path=$(find /tmp/mdc-attractor-stage -type f -name index.html -print -quit)
+              test -n "$index_path"
+              source_root=$(dirname "$index_path")
+            fi
+            rsync -a --delete-excluded \
+              --exclude='.git/' \
+              --exclude='.github/' \
+              --exclude='.qa-bundle/' \
+              "$source_root"/ ./
+          fi
+
+      - name: Remove superseded implementation
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f promise-compiler.css \
+                promise-compiler-core.js \
+                promise-compiler-webgpu.js \
+                promise-compiler-webgl.js \
+                promise-compiler.js \
+                hero-2026.css \
+                hero-gpu-core.js \
+                hero-gpu-fallbacks.js \
+                hero-gpu.js
+
+      - name: Verify publication contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in \
+            index.html \
+            operating-attractor.css \
+            operating-attractor-field.js \
+            operating-attractor-hero.js \
+            operating-attractor-stress.js \
+            vendor/three/three.module.min.js \
+            README.md \
+            campaign-audit.md; do
+            test -s "$file"
+          done
+
+          grep -q 'Operating Stress Test' index.html
+          grep -q 'Build the company' index.html
+          grep -q 'Scope expansion' index.html
+          grep -q 'Capacity constraint' index.html
+          grep -q 'Agent-quality failure' index.html
+          grep -q 'Outcome rejection' index.html
+          grep -q 'Cash mismatch' index.html
+
+          ! grep -RniE 'Promise Compiler|New logo won|Engagement Load Path' \
+            index.html operating-attractor*.js operating-attractor.css README.md campaign-audit.md
+
+          test "$(find docs -maxdepth 1 -type f -name '*.pdf' | wc -l)" -ge 6
+
+      - name: Clean publication machinery
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .qa-bundle
+          rm -f .github/workflows/publish-operating-attractor.yml
+          rm -f .github/workflows/finalize-operating-attractor.yml
+          rmdir .github/workflows 2>/dev/null || true
+          rmdir .github 2>/dev/null || true
+
+      - name: Commit readable final tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'candidate-campaign-publisher'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'Final tree already satisfies the publication contract.'
+            exit 0
+          fi
+          git commit -m 'Finalize Operating Attractor Field campaign'
+          git push origin HEAD:main
