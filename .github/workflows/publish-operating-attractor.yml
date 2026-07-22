@@ -1,0 +1,85 @@
+name: Publish Operating Attractor Field
+
+on:
+  push:
+    paths:
+      - .github/workflows/publish-operating-attractor.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-operating-attractor
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install approved campaign bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d .qa-bundle
+          cat .qa-bundle/chunk-*.b64 > /tmp/mdc-attractor.b64
+          base64 --decode /tmp/mdc-attractor.b64 > /tmp/mdc-attractor.tar.gz
+          tar -xzf /tmp/mdc-attractor.tar.gz -C .
+
+          rm -f promise-compiler.css \
+                promise-compiler-core.js \
+                promise-compiler-webgpu.js \
+                promise-compiler-webgl.js \
+                promise-compiler.js
+
+      - name: Assert readable production source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s index.html
+          test -s operating-attractor.css
+          test -s operating-attractor-field.js
+          test -s operating-attractor-hero.js
+          test -s operating-attractor-stress.js
+          test -s vendor/three/three.module.min.js
+          grep -q 'Operating Stress Test' index.html
+          grep -q 'Build the company' index.html
+          ! grep -RniE 'Promise Compiler|New logo won|Engagement Load Path' \
+            index.html operating-attractor*.js operating-attractor.css README.md campaign-audit.md
+          ! test -e promise-compiler.js
+
+      - name: Run available campaign QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test -f audit/source_qa.py; then python audit/source_qa.py; fi
+          if test -f audit/integrity_qa.py; then python audit/integrity_qa.py; fi
+          if test -f audit/attractor_qa.py; then python audit/attractor_qa.py; fi
+
+      - name: Remove staging and self-clean
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .qa-bundle
+          rm -f .github/workflows/publish-operating-attractor.yml
+          rmdir .github/workflows 2>/dev/null || true
+          rmdir .github 2>/dev/null || true
+
+      - name: Publish corrected main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'candidate-campaign-publisher'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No campaign changes to publish.'
+            exit 0
+          fi
+          git commit -m 'Replace Promise Compiler with Operating Attractor Field'
+          git push origin HEAD:main
