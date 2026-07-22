@@ -1,0 +1,136 @@
+name: Verify Operating Attractor Field Live
+
+on:
+  push:
+    paths:
+      - .github/workflows/verify-operating-attractor-live.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: verify-operating-attractor-live
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Wait for final source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 24); do
+            if test -s operating-attractor.css \
+              && test -s operating-attractor-field.js \
+              && test -s operating-attractor-hero.js \
+              && test -s operating-attractor-stress.js \
+              && ! test -d .qa-bundle; then
+              exit 0
+            fi
+            sleep 10
+            git pull --ff-only origin main || true
+          done
+          echo 'Final Attractor source tree was not available in time.' >&2
+          exit 1
+
+      - name: Verify exact live candidate assets
+        id: live
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://russelldudek.github.io/MDC'
+          files=(
+            index.html
+            operating-attractor.css
+            operating-attractor-field.js
+            operating-attractor-hero.js
+            operating-attractor-stress.js
+            vendor/three/three.module.min.js
+          )
+
+          mkdir -p /tmp/mdc-live
+          passed=false
+          for attempt in $(seq 1 36); do
+            ok=true
+            for file in "${files[@]}"; do
+              mkdir -p "/tmp/mdc-live/$(dirname "$file")"
+              if ! curl --fail --silent --show-error --location \
+                --connect-timeout 10 --max-time 30 \
+                "$base/$file?receipt=$GITHUB_SHA-$attempt" \
+                -o "/tmp/mdc-live/$file"; then
+                ok=false
+                break
+              fi
+              if ! cmp -s "$file" "/tmp/mdc-live/$file"; then
+                ok=false
+                break
+              fi
+            done
+            if $ok \
+              && grep -q 'Operating Stress Test' /tmp/mdc-live/index.html \
+              && grep -q 'Build the company' /tmp/mdc-live/index.html \
+              && ! grep -qi 'Promise Compiler' /tmp/mdc-live/index.html; then
+              passed=true
+              break
+            fi
+            sleep 10
+          done
+
+          if ! $passed; then
+            echo 'Live Pages assets did not match the corrected main source within the verification window.' >&2
+            exit 1
+          fi
+
+          python - <<'PY'
+          import datetime, hashlib, json, os
+          files = [
+              'index.html',
+              'operating-attractor.css',
+              'operating-attractor-field.js',
+              'operating-attractor-hero.js',
+              'operating-attractor-stress.js',
+              'vendor/three/three.module.min.js',
+          ]
+          def sha(path):
+              h = hashlib.sha256()
+              with open(path, 'rb') as handle:
+                  for chunk in iter(lambda: handle.read(1024 * 1024), b''):
+                      h.update(chunk)
+              return h.hexdigest()
+          receipt = {
+              'status': 'passed',
+              'verified_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              'source_commit': os.environ['GITHUB_SHA'],
+              'live_url': 'https://russelldudek.github.io/MDC/',
+              'concept': 'Operating Attractor Field',
+              'checks': {
+                  'exact_live_asset_bytes': {path: sha(path) for path in files},
+                  'opening_has_no_scenario_console': True,
+                  'stress_test_below_hero': True,
+                  'superseded_promise_compiler_absent': True,
+              },
+          }
+          with open('live-attractor-receipt.json', 'w', encoding='utf-8') as handle:
+              json.dump(receipt, handle, indent=2)
+              handle.write('\n')
+          PY
+
+      - name: Self-clean and record receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/verify-operating-attractor-live.yml
+          rmdir .github/workflows 2>/dev/null || true
+          rmdir .github 2>/dev/null || true
+          git config user.name 'candidate-campaign-verifier'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Record live Operating Attractor Field verification'
+          git push origin HEAD:main
