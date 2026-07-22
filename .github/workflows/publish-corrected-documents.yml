@@ -29,10 +29,10 @@ jobs:
         run: |
           set -euo pipefail
           test -s .publication/mdc-doc-correction.tar.gz
-          tar -tzf .publication/mdc-doc-correction.tar.gz >/dev/null
-          tar -tzf .publication/mdc-doc-correction.tar.gz | grep -q 'interview-brief.html'
-          tar -tzf .publication/mdc-doc-correction.tar.gz | grep -q 'Russell-Dudek-COO-AI-Adoption-Interview-Thesis.pdf'
-          ! tar -tzf .publication/mdc-doc-correction.tar.gz | grep -qi 'founder-operating-contract'
+          tar -tzf .publication/mdc-doc-correction.tar.gz > /tmp/mdc-bundle-files.txt
+          grep -q 'interview-brief.html' /tmp/mdc-bundle-files.txt
+          grep -q 'Russell-Dudek-COO-AI-Adoption-Interview-Thesis.pdf' /tmp/mdc-bundle-files.txt
+          ! grep -qi 'founder-operating-contract' /tmp/mdc-bundle-files.txt
           cp .publication/mdc-doc-correction.tar.gz /tmp/mdc-doc-correction.tar.gz
 
       - name: Replace main with corrected readable source
