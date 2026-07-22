@@ -1,0 +1,24 @@
+{
+  "status": "pass",
+  "routes": ["index.html", "resume.html", "cover-letter.html", "interview-brief.html", "120-day-plan.html", "role-alignment.html"],
+  "viewports": ["1440x900", "1280x800", "768x1024", "390x844", "320x800"],
+  "route_viewport_combinations": 30,
+  "horizontal_overflow_failures": 0,
+  "browser_errors": 0,
+  "question_rows": 5,
+  "document_screen_mode": "fluid-editorial",
+  "hero_cycle": ["stabilizing", "holding", "releasing", "stabilizing"],
+  "offscreen_pause": true,
+  "reduced_motion": {
+    "state": "holding",
+    "pixel_drift": 0
+  },
+  "pdf_page_counts": {
+    "resume": 2,
+    "cover_letter": 1,
+    "interview_thesis": 3,
+    "120_day_plan": 2,
+    "role_alignment": 1
+  },
+  "retired_artifact_matches": 0
+}

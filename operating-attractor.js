@@ -26,6 +26,9 @@
   let visible = true;
   let settled = false;
 
+  const cycleTiming = { stabilize: 8200, hold: 3400, release: 3200 };
+  cycleTiming.duration = cycleTiming.stabilize + cycleTiming.hold + cycleTiming.release;
+
   const fieldStops = [0.24, 0.43, 0.63, 0.82];
   const laneFractions = [0.32, 0.41, 0.5, 0.59, 0.68];
 
@@ -110,6 +113,7 @@
     particles = Array.from({ length: count }, (_, index) => new Particle(index, reducedMotion.matches));
     settled = reducedMotion.matches;
     root.dataset.settled = String(settled);
+    root.dataset.cycle = reducedMotion.matches ? 'holding' : 'stabilizing';
     draw(performance.now(), reducedMotion.matches ? 1 : 0);
   }
 
@@ -197,10 +201,31 @@
     context.restore();
   }
 
+  function smoothstep(value) {
+    const t = Math.min(1, Math.max(0, value));
+    return t * t * (3 - 2 * t);
+  }
+
+  function getCycleState(elapsed) {
+    const cycleElapsed = elapsed % cycleTiming.duration;
+    if (cycleElapsed < cycleTiming.stabilize) {
+      return { elapsed: cycleElapsed, phase: 'stabilizing', stabilization: smoothstep(cycleElapsed / cycleTiming.stabilize) };
+    }
+    if (cycleElapsed < cycleTiming.stabilize + cycleTiming.hold) {
+      return { elapsed: cycleElapsed, phase: 'holding', stabilization: 1 };
+    }
+    const releaseElapsed = cycleElapsed - cycleTiming.stabilize - cycleTiming.hold;
+    return { elapsed: cycleElapsed, phase: 'releasing', stabilization: 1 - smoothstep(releaseElapsed / cycleTiming.release) };
+  }
+
   function draw(time, forcedStabilization = null) {
     context.clearRect(0, 0, width, height);
     const elapsed = startedAt ? time - startedAt : 0;
-    const stabilization = forcedStabilization ?? Math.min(1, Math.max(0, elapsed / 8200));
+    const cycle = forcedStabilization === null ? getCycleState(elapsed) : { elapsed: cycleTiming.stabilize, phase: 'holding', stabilization: forcedStabilization };
+    const stabilization = cycle.stabilization;
+    root.dataset.cycle = cycle.phase;
+    settled = cycle.phase === 'holding';
+    root.dataset.settled = String(settled);
 
     const haze = context.createLinearGradient(0, 0, width, 0);
     haze.addColorStop(0, 'rgba(205,117,106,.055)');
@@ -209,24 +234,22 @@
     context.fillStyle = haze;
     context.fillRect(0, 0, width, height);
 
-    drawField(stabilization, elapsed);
+    drawField(stabilization, cycle.elapsed);
 
     particles.forEach((particle) => {
       if (forcedStabilization === null) particle.update(time, stabilization);
       particle.draw(stabilization);
     });
 
-    if (!settled && stabilization >= 1 && elapsed > 10500) {
-      settled = true;
-      root.dataset.settled = 'true';
-    }
   }
 
   function frame(time) {
     if (!startedAt) startedAt = time;
     draw(time);
-    if (!settled && visible && !reducedMotion.matches) {
+    if (visible && !reducedMotion.matches) {
       raf = requestAnimationFrame(frame);
+    } else {
+      raf = 0;
     }
   }
 
@@ -235,6 +258,7 @@
     startedAt = 0;
     settled = reducedMotion.matches;
     root.dataset.settled = String(settled);
+    root.dataset.cycle = reducedMotion.matches ? 'holding' : 'stabilizing';
     if (reducedMotion.matches) draw(performance.now(), 1);
     else raf = requestAnimationFrame(frame);
   }
@@ -244,7 +268,7 @@
 
   const visibilityObserver = new IntersectionObserver((entries) => {
     visible = entries.some((entry) => entry.isIntersecting);
-    if (visible && !settled && !reducedMotion.matches && !raf) {
+    if (visible && !reducedMotion.matches && !raf) {
       raf = requestAnimationFrame(frame);
     } else if (!visible) {
       cancelAnimationFrame(raf);

@@ -1,0 +1,77 @@
+/* Screen composition is editorial and fluid. Print geometry remains owned by styles.css. */
+@media screen {
+  .document-page { background: radial-gradient(circle at 12% 0%, rgba(226,177,141,.15), transparent 30rem), linear-gradient(180deg,#eeece6 0%,#e5e4de 100%); }
+  .document-page main { padding: clamp(18px,3vw,42px) 0 clamp(72px,8vw,112px); }
+  .doc-actions { top: 86px; max-width: 1180px; margin: 0 auto clamp(18px,2vw,28px); padding: 10px 12px; border-color: rgba(36,52,73,.12); border-radius: 10px; box-shadow: 0 12px 36px rgba(30,39,49,.09); }
+  .doc-actions::before { content: "Document"; display: inline-flex; align-items: center; padding: 0 10px 0 4px; color: var(--muted); font-size: 10px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+  .doc-actions .btn { min-height: 40px; padding: 10px 14px; border-radius: 6px; font-size: 11px; }
+  .document { display: block; width: min(1180px, calc(100% - clamp(24px,5vw,72px))); margin: 0 auto; padding: 0; overflow: hidden; background: #fff; border: 1px solid rgba(36,52,73,.12); border-radius: 14px; box-shadow: 0 28px 80px rgba(29,38,49,.14); }
+  .document .paper { width: 100%; min-height: 0; margin: 0; padding: clamp(40px,6vw,78px) clamp(30px,7vw,88px); overflow: visible; background: #fff; box-shadow: none; }
+  .document .paper + .paper { border-top: 1px solid rgba(36,52,73,.14); }
+  .document .page-footer { position: static; margin-top: clamp(34px,5vw,64px); padding-top: 14px; color: #66707a; font-size: 11px; }
+  .document .doc-header, .document .letter-header { gap: clamp(28px,5vw,70px); padding-bottom: 26px; }
+  .document .doc-header h1, .document .letter-header h1 { margin-top: 10px; font-size: clamp(42px,5vw,64px); }
+  .document .role-line, .document .letter-header p { font-size: clamp(15px,1.5vw,19px); }
+  .document .contact-block { flex-basis: min(34%,340px); font-size: 13px; line-height: 1.65; }
+  .document .continuation-header { padding-bottom: 18px; font-size: 12px; }
+  .document .continuation-header strong { font-size: 24px; }
+  .document .resume-summary { margin-top: 26px; padding: 22px 24px; }
+  .document .resume-summary h2, .document .resume-role h2, .document .resume-grid h2, .document .resume-close h2, .document .resume-operating-focus h2, .document .resume-systems h2 { font-size: 13px; }
+  .document .resume-summary p { font-size: 16px; line-height: 1.58; }
+  .document .competency-band { gap: 8px; margin: 18px 0 12px; }
+  .document .competency-band span { padding: 7px 10px; font-size: 11px; }
+  .document .resume-role { padding: 20px 0 16px; }
+  .document .role-head h2 { font-size: 16px; }
+  .document .role-head p, .document .role-head > span { font-size: 13px; }
+  .document .resume-role ul { margin-top: 10px; padding-left: 22px; }
+  .document .resume-role li { margin: 6px 0; font-size: 15px; line-height: 1.52; }
+  .document .resume-page-value, .document .resume-close, .document .callout, .document .decision-gate, .document .alignment-close, .document .alignment-case { margin-top: 22px; padding: 20px 22px; }
+  .document .resume-page-value strong { font-size: 12px; }
+  .document .resume-page-value p, .document .resume-grid p, .document .value-columns p, .document .resume-operating-focus p, .document .resume-systems span { font-size: 14px; line-height: 1.5; }
+  .document .resume-grid { gap: 22px 34px; margin-top: 24px; }
+  .document .resume-grid > div { padding-top: 16px; }
+  .document .resume-operating-focus > div, .document .resume-systems > div { gap: 18px; }
+  .document .letter-page { padding: clamp(44px,7vw,88px) clamp(30px,9vw,112px); }
+  .document .letter-meta { margin: 28px 0 34px; font-size: 13px; line-height: 1.55; }
+  .document .letter-body { max-width: 76ch; margin: 0 auto; font-size: clamp(17px,1.55vw,19px); line-height: 1.74; }
+  .document .letter-body p { margin-bottom: 18px; }
+  .document .brief-title { padding-bottom: 24px; }
+  .document .brief-title h1 { font-size: clamp(40px,5vw,62px); }
+  .document .brief-title p { font-size: 16px; }
+  .document .brief-grid, .document .performance-grid, .document .metric-matrix, .document .outcome-grid, .document .plan-principles, .document .phase-columns, .document .alignment-columns, .document .alignment-actions { gap: 18px; margin-top: 24px; }
+  .document .brief-grid article, .document .performance-grid article, .document .metric-matrix article, .document .outcome-grid article, .document .plan-principles article, .document .phase-columns > div, .document .alignment-actions section, .document .alignment-columns section { padding: 20px; }
+  .document .brief-grid h3, .document .metric-matrix h3, .document .outcome-grid h3, .document .phase-columns h3 { font-size: 19px; }
+  .document .brief-grid p, .document .brief-section p, .document .performance-grid p, .document .metric-matrix p, .document .outcome-grid p, .document .plan-principles p, .document .phase-columns li, .document .check-list li, .document .alignment-columns li, .document .alignment-actions li, .document .alignment-actions p, .document .alignment-case p, .document .alignment-close p { font-size: 15px; line-height: 1.55; }
+  .document .brief-section, .document .phase-focus, .document .phase-band { margin-top: 30px; }
+  .document .brief-section h2, .document .plan-page h2, .document .alignment-page h2 { font-size: clamp(24px,2.5vw,32px); }
+  .document .thesis-statement, .document .closing-thesis { padding: 24px; font-size: 20px; }
+  .document .executive-questions { columns: 1; }
+  .document .evidence-table > div { grid-template-columns: minmax(130px,.28fr) 1fr; gap: 18px; padding: 14px 0; font-size: 14px; }
+  .document .source-note { font-size: 11px; }
+  .document .phase-focus.split { gap: 30px; }
+  .document .deliverables span, .document .day120-artifacts span { font-size: 11px; }
+  .document .alignment-map span, .document .alignment-map strong { padding: 14px; font-size: 13px; }
+  .document .alignment-map .matrix-head span { font-size: 10px; }
+}
+@media screen and (max-width: 820px) {
+  .document-page main { padding-top: 12px; }
+  .doc-actions { top: 72px; margin: 0 12px 16px; }
+  .doc-actions::before { display: none; }
+  .document { width: calc(100% - 24px); border-radius: 10px; }
+  .document .paper { padding: 34px 24px 40px; }
+  .document .contact-block { flex-basis: auto; text-align: left; }
+  .document .resume-grid, .document .value-columns, .document .brief-grid, .document .performance-grid, .document .metric-matrix, .document .outcome-grid, .document .plan-principles, .document .phase-columns, .document .phase-focus.split, .document .alignment-columns, .document .alignment-actions { grid-template-columns: 1fr; }
+  .document .check-list.two-column { columns: 1; }
+  .document .alignment-map { display: block; border: 0; }
+  .document .alignment-map > div { display: grid; grid-template-columns: 1fr; margin-bottom: 14px; border: 1px solid var(--line); }
+  .document .alignment-map .matrix-head { display: none; }
+  .document .alignment-map span, .document .alignment-map strong { border-left: 0; }
+}
+@media screen and (max-width: 520px) {
+  .doc-actions { overflow-x: auto; flex-wrap: nowrap; scrollbar-width: thin; }
+  .doc-actions .btn { flex: 0 0 auto; }
+  .document .paper { padding: 30px 20px 36px; }
+  .document .doc-header h1, .document .letter-header h1, .document .brief-title h1 { font-size: 38px; }
+  .document .letter-body { font-size: 17px; }
+  .document .resume-role li, .document .brief-grid p, .document .brief-section p, .document .performance-grid p, .document .metric-matrix p, .document .outcome-grid p, .document .plan-principles p, .document .phase-columns li, .document .check-list li, .document .alignment-columns li, .document .alignment-actions li, .document .alignment-actions p { font-size: 14px; }
+}

@@ -9,81 +9,31 @@
 - Candidate-vision URL: `https://russelldudek.github.io/MDC/`
 - Job posting: supplied in chat; no public posting URL supplied
 
-## Strategic integrity
+## Material correction
 
-- Actual work and operating tensions: passed
-- Evidence mapped to the complete supplied job description: passed
-- Claim-strength and metric boundaries: passed
-- Public positioning: strength-first and future-facing
-- Confidential-client identity: not guessed or implied
+- The standalone founder decision-rights route and PDF were deleted from the campaign.
+- The candidate experience removes older embedded references through the shared application layer; decision-rights work remains inside the 120-day plan as an operating mechanism rather than a separate artifact.
+- The executive questions were rebuilt as five semantic editorial rows with separated numeric markers, controlled measure, and responsive composition.
+- Screen documents now render as fluid editorial surfaces instead of scaled Letter sheets. Print styles remain isolated and retain exact page geometry.
+- Resume and cover-letter toolbars now use direct cross-document actions and remove self-links.
+- The Operating Attractor Field now runs a continuous role-derived cycle: volatile demand enters, operating controls stabilize it, the stable state remains readable, and the field reopens for the next demand wave.
+- The loop pauses offscreen. `prefers-reduced-motion` receives a static settled composition.
 
-## Brand and visual integrity
+## Fresh verification record
 
-- Visible recruiting-channel identity: passed
-- Independent-candidate distinction: passed
-- Official logo/wordmark: unavailable with documented technical retrieval exception
-- Typed nominative identifier: used; not represented as an official logo
-- Color provenance: candidate-original and documented
-- Typography decision: documented; no proprietary font files
-- Visual concept: Promise Compiler
-- Dominant scene: an unstable client commitment compiles into a coherent operating object or a legible fault state
-- Signature renderer: native WebGPU raymarching first, matched WebGL2 raymarching fallback, designed crystalline Canvas 2D fallback
-- Renderer resilience: WebGPU compilation checked before activation; stateful semantic object remains visible without canvas output
-- Production CDN dependencies: none
-- Candidate-facing visual continuity across site and PDFs: passed
-
-## Interaction and UX
-
-- Smart starting state: passed
-- Meaningful scenario participation: passed
-- Scenario language describes operating decisions rather than sales shorthand: passed
-- Atomic state synchronization: passed
-- Rapid final-selection authority: passed
-- Keyboard control: passed
-- Runtime intermediate motion and stable settlement: passed
-- Material geometry and frame-difference regression: passed
-- Deliberate replay and final-request-wins transition behavior: passed
-- Reduced-motion immediate semantic settlement: passed
-- Mobile navigation and recomposed scene: passed
-- Value before ask: passed
-- Cost-of-inaction and comparison integrity: passed
-- Dark-pattern review: passed
-
-## Responsive and document validation
-
-- Routes tested: 7
-- Viewports per route: 1440x900, 1280x800, 768x1024, 390x844, 320x800
-- Total route/viewport combinations: 35
-- Horizontal-overflow findings: 0
-- Browser errors: 0
-- Screen-document clipping findings: 0
-- Resume PDF: exactly 2 pages
-- Cover-letter PDF: exactly 1 page
-- Interview-thesis PDF: exactly 3 pages
-- 120-day-plan PDF: exactly 2 pages
-- Founder Operating Contract PDF: exactly 2 pages
-- Role Alignment Brief PDF: exactly 1 page
-- PDF text and metadata forbidden-name matches: 0
-- Public source forbidden-name matches: 0
-- Missing internal links: 0
-- Resume/cover-letter reciprocal navigation: passed
-- Native PDF filenames and download semantics: passed
-- Resume and cover-letter contact information: passed
-
-## Material correction record
-
-- Rejected execution: the previous GPU support-frame hero remained a dense dashboard and literal support diagram despite using modern rendering technology.
-- Approved correction: delete that metaphor and replace it with the Promise Compiler, one cinematic compilation event with subordinate controls and one integrated result.
-- Regression coverage: legacy dashboard selectors absent; five scenarios present; renderer initialized; runtime intermediate frame visible; settled states materially differ; replay runs and settles; rapid final selection wins; reduced motion settles immediately; mobile remains composed.
-- User-reported renderer defect: a WebGPU-capable browser selected an invalid WGSL program and produced a blank central field.
-- Root correction: remove illegal multi-component swizzle assignments, validate shader compilation, use asynchronous pipeline validation, and preserve a visible semantic object independent of GPU output.
-- Language correction: replace `New logo won` with `Start-readiness gap` and rewrite all five controls around consequential COO decisions.
-- Added regression coverage: invalid WGSL swizzle assignments absent; compilation validation present; semantic object visible and materially sized with the canvas hidden; sales shorthand absent.
-- Prior rendered and live proof: expired.
+- Test-first regression failed against the prior source on the retired route/PDF, stale rendered wording, missing semantic question rows, missing screen styles, missing cross-document labels, and missing loop phases.
+- Static correction regression passed against the corrected campaign package.
+- `app.js` and `operating-attractor.js` passed `node --check`.
+- Browser QA passed 6 routes × 5 viewports = 30 route/viewport combinations at 1440×900, 1280×800, 768×1024, 390×844, and 320×800 with zero horizontal overflow and zero browser errors.
+- The executive questions rendered as five semantic rows at every tested viewport; desktop uses a separate marker column and mobile reflows to a compact rail.
+- Browser document surfaces expand to the editorial container, remove Letter minimum height, and preserve responsive typography.
+- Motion runtime observed `stabilizing → holding → releasing → stabilizing`.
+- Reduced motion remained in the settled `holding` state with zero measured pixel drift.
+- PDF pagination: resume 2 pages; cover letter 1 page; interview thesis 3 pages; 120-day plan 2 pages; role alignment 1 page.
+- Corrected cover-letter and 120-day-plan PDFs were rendered and visually inspected for clipping, overlap, and broken glyphs.
 
 ## Publication status
 
-- Campaign state: corrected source published to `main`; exact live verification pending
-- Corrected local browser, motion, responsive, reduced-motion, confidentiality, link, PDF, page-count and contact checks: passed
-- Final public `main` head: captured in the private completion record
-- Corrected live deployment verification: pending Pages propagation
+- Corrected source, styles, scripts, regenerated PDFs, and integrity records are published to public `main` in this correction batch.
+- Material correction invalidates earlier live proof.
+- Exact GitHub Pages deployment verification is recorded separately after the public site serves the new head.
