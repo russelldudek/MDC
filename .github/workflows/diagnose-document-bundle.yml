@@ -1,0 +1,35 @@
+name: Diagnose document bundle transport
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Record binary transport diagnostics
+        run: |
+          set -euo pipefail
+          mkdir -p .publication
+          {
+            wc -c .publication/mdc-doc-correction.tar.gz
+            sha256sum .publication/mdc-doc-correction.tar.gz
+            if gzip -t .publication/mdc-doc-correction.tar.gz; then echo gzip=valid; else echo gzip=invalid; fi
+            xxd -l 16 .publication/mdc-doc-correction.tar.gz
+            tail -c 16 .publication/mdc-doc-correction.tar.gz | xxd
+          } > .publication/bundle-diagnostic.txt 2>&1
+          git config user.name 'candidate-campaign-diagnostic'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .publication/bundle-diagnostic.txt
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Record document bundle transport diagnostics'
+          git push origin HEAD:fix/remove-founder-contract-doc-layout
