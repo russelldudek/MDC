@@ -11,8 +11,8 @@
 
 ## Material correction
 
-- The standalone founder decision-rights route and PDF were deleted from the campaign.
-- The candidate experience removes older embedded references through the shared application layer; decision-rights work remains inside the 120-day plan as an operating mechanism rather than a separate artifact.
+- The standalone founder decision-rights route, PDF, links, manifest entries, generated-document references, and readable source language were removed.
+- Decision-rights work remains inside the 120-day plan as an operating mechanism rather than a separate candidate artifact.
 - The executive questions were rebuilt as five semantic editorial rows with separated numeric markers, controlled measure, and responsive composition.
 - Screen documents now render as fluid editorial surfaces instead of scaled Letter sheets. Print styles remain isolated and retain exact page geometry.
 - Resume and cover-letter toolbars now use direct cross-document actions and remove self-links.
@@ -21,7 +21,7 @@
 
 ## Fresh verification record
 
-- Test-first regression failed against the prior source on the retired route/PDF, stale rendered wording, missing semantic question rows, missing screen styles, missing cross-document labels, and missing loop phases.
+- Test-first regression failed against the prior source on the retired route/PDF, stale wording, missing semantic question rows, missing screen styles, missing cross-document labels, and missing loop phases.
 - Static correction regression passed against the corrected campaign package.
 - `app.js` and `operating-attractor.js` passed `node --check`.
 - Browser QA passed 6 routes × 5 viewports = 30 route/viewport combinations at 1440×900, 1280×800, 768×1024, 390×844, and 320×800 with zero horizontal overflow and zero browser errors.
@@ -34,6 +34,6 @@
 
 ## Publication status
 
-- Corrected source, styles, scripts, regenerated PDFs, and integrity records are published to public `main` in this correction batch.
+- Corrected source, styles, scripts, regenerated PDFs, and integrity records are published to public `main`.
 - Material correction invalidates earlier live proof.
-- Exact GitHub Pages deployment verification is recorded separately after the public site serves the new head.
+- Independent exact GitHub Pages byte verification remains pending because this environment could not resolve the Pages host during the deployment check.
