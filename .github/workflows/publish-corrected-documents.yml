@@ -2,8 +2,7 @@ name: Publish corrected campaign documents
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: write
@@ -18,68 +17,34 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Check out correction bundle
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
-      - name: Preserve and validate archive
-        shell: bash
+      - name: Preserve correction bundle
         run: |
           set -euo pipefail
           test -s .publication/mdc-doc-correction.tar.gz
-          tar -tzf .publication/mdc-doc-correction.tar.gz > /tmp/mdc-bundle-files.txt
-          grep -q 'interview-brief.html' /tmp/mdc-bundle-files.txt
-          grep -q 'Russell-Dudek-COO-AI-Adoption-Interview-Thesis.pdf' /tmp/mdc-bundle-files.txt
-          ! grep -qi 'founder-operating-contract' /tmp/mdc-bundle-files.txt
           cp .publication/mdc-doc-correction.tar.gz /tmp/mdc-doc-correction.tar.gz
 
-      - name: Replace main with corrected readable source
-        shell: bash
+      - name: Install exact corrected source on main
         run: |
           set -euo pipefail
           git fetch origin main
           git checkout -B main origin/main
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           tar -xzf /tmp/mdc-doc-correction.tar.gz -C .
-          rm -rf .github .publication
+          test -s index.html
+          test -s interview-brief.html
+          test -s docs/Russell-Dudek-COO-AI-Adoption-Interview-Thesis.pdf
 
-          rm -f founder-operating-contract.html \
-                docs/Russell-Dudek-Founder-Operating-Contract.pdf \
-                promise-compiler.css \
-                promise-compiler-core.js \
-                promise-compiler-webgpu.js \
-                promise-compiler-webgl.js \
-                promise-compiler.js \
-                hero-2026.css \
-                hero-gpu-core.js \
-                hero-gpu-fallbacks.js \
-                hero-gpu.js \
-                audit/browser_qa.py \
-                audit/capture_missing.py \
-                audit/generate_pdfs.py \
-                audit/motion_qa.py \
-                audit/runtime_resilience_qa.py
-
-      - name: Verify corrected document contract
-        shell: bash
+      - name: Verify source, links, absence, and PDF contracts
         run: |
           set -euo pipefail
           python -m pip install --quiet pypdf beautifulsoup4
 
-          for file in \
-            index.html \
-            resume.html \
-            cover-letter.html \
-            interview-brief.html \
-            120-day-plan.html \
-            role-alignment.html \
-            styles.css \
-            operating-attractor.css \
-            operating-attractor.js \
-            artifact-manifest.md \
-            campaign-audit.md; do
+          for file in index.html resume.html cover-letter.html interview-brief.html 120-day-plan.html role-alignment.html styles.css operating-attractor.css operating-attractor.js artifact-manifest.md campaign-audit.md; do
             test -s "$file"
           done
 
@@ -93,16 +58,11 @@ jobs:
           grep -q 'Operating proof I would build' role-alignment.html
           grep -q 'Document system correction' campaign-audit.md
 
-          ! grep -RniE 'Founder Operating Contract|founder-operating-contract|Russell-Dudek-Founder-Operating-Contract|Promise Compiler|promise-compiler' \
-            --exclude-dir=.git \
-            --exclude='*.py' \
-            --exclude='*.json' \
-            .
+          ! grep -RniE 'Founder Operating Contract|founder-operating-contract|Russell-Dudek-Founder-Operating-Contract|Promise Compiler|promise-compiler' --exclude-dir=.git --exclude='*.py' --exclude='*.json' .
 
           python - <<'PY'
           from pathlib import Path
           from pypdf import PdfReader
-
           expected = {
               'Russell-Dudek-COO-AI-Adoption-Resume.pdf': 2,
               'Russell-Dudek-COO-AI-Adoption-Cover-Letter.pdf': 1,
@@ -111,8 +71,7 @@ jobs:
               'Russell-Dudek-COO-AI-Adoption-Role-Alignment.pdf': 1,
           }
           for name, count in expected.items():
-              path = Path('docs') / name
-              actual = len(PdfReader(str(path)).pages)
+              actual = len(PdfReader(str(Path('docs') / name)).pages)
               if actual != count:
                   raise SystemExit(f'{name}: expected {count}, found {actual}')
           PY
@@ -120,9 +79,8 @@ jobs:
           python audit/attractor_source_qa.py
           python audit/integrity_qa.py
 
-      - name: Commit corrected documents to main
+      - name: Publish corrected documents
         id: publish
-        shell: bash
         run: |
           set -euo pipefail
           git config user.name 'candidate-campaign-publisher'
@@ -130,30 +88,22 @@ jobs:
           git add -A
           git commit -m 'Remove founder contract and rebalance campaign documents'
           git push origin HEAD:main
-          printf 'source_sha=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "source_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Verify exact corrected GitHub Pages deployment
-        shell: bash
         env:
           SOURCE_SHA: ${{ steps.publish.outputs.source_sha }}
         run: |
           set -euo pipefail
           base='https://russelldudek.github.io/MDC'
           files=(
-            index.html
-            resume.html
-            cover-letter.html
-            interview-brief.html
-            120-day-plan.html
-            role-alignment.html
-            styles.css
+            index.html resume.html cover-letter.html interview-brief.html 120-day-plan.html role-alignment.html styles.css
             docs/Russell-Dudek-COO-AI-Adoption-Resume.pdf
             docs/Russell-Dudek-COO-AI-Adoption-Cover-Letter.pdf
             docs/Russell-Dudek-COO-AI-Adoption-Interview-Thesis.pdf
             docs/Russell-Dudek-COO-AI-Adoption-120-Day-Plan.pdf
             docs/Russell-Dudek-COO-AI-Adoption-Role-Alignment.pdf
           )
-
           rm -rf /tmp/mdc-live
           mkdir -p /tmp/mdc-live
           passed=false
@@ -161,42 +111,20 @@ jobs:
             ok=true
             for file in "${files[@]}"; do
               mkdir -p "/tmp/mdc-live/$(dirname "$file")"
-              if ! curl --fail --silent --show-error --location \
-                --connect-timeout 10 --max-time 30 \
-                "$base/$file?verify=$SOURCE_SHA-$attempt" \
-                -o "/tmp/mdc-live/$file"; then
-                ok=false
-                break
-              fi
-              if ! cmp -s "$file" "/tmp/mdc-live/$file"; then
-                ok=false
-                break
-              fi
+              curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 "$base/$file?verify=$SOURCE_SHA-$attempt" -o "/tmp/mdc-live/$file" || { ok=false; break; }
+              cmp -s "$file" "/tmp/mdc-live/$file" || { ok=false; break; }
             done
-
-            founder_html_status="$(curl --silent --output /dev/null --write-out '%{http_code}' --location --connect-timeout 10 --max-time 30 "$base/founder-operating-contract.html?verify=$SOURCE_SHA-$attempt" || true)"
-            founder_pdf_status="$(curl --silent --output /dev/null --write-out '%{http_code}' --location --connect-timeout 10 --max-time 30 "$base/docs/Russell-Dudek-Founder-Operating-Contract.pdf?verify=$SOURCE_SHA-$attempt" || true)"
-
-            if $ok \
-              && [[ "$founder_html_status" == '404' ]] \
-              && [[ "$founder_pdf_status" == '404' ]] \
-              && grep -q 'Entry sequence' /tmp/mdc-live/interview-brief.html \
-              && grep -q 'Day-120 executive readout' /tmp/mdc-live/120-day-plan.html \
-              && grep -q 'Operating proof I would build' /tmp/mdc-live/role-alignment.html \
-              && ! grep -RqiE 'Founder Operating Contract|founder-operating-contract' /tmp/mdc-live; then
+            founder_html="$(curl --silent --output /dev/null --write-out '%{http_code}' --location "$base/founder-operating-contract.html?verify=$SOURCE_SHA-$attempt" || true)"
+            founder_pdf="$(curl --silent --output /dev/null --write-out '%{http_code}' --location "$base/docs/Russell-Dudek-Founder-Operating-Contract.pdf?verify=$SOURCE_SHA-$attempt" || true)"
+            if $ok && [[ "$founder_html" == 404 ]] && [[ "$founder_pdf" == 404 ]] && grep -q 'Entry sequence' /tmp/mdc-live/interview-brief.html && ! grep -RqiE 'Founder Operating Contract|founder-operating-contract' /tmp/mdc-live; then
               passed=true
               break
             fi
             sleep 10
           done
+          $passed || { echo 'Corrected Pages deployment did not match main.' >&2; exit 1; }
 
-          if ! $passed; then
-            echo 'Corrected Pages deployment did not match main within the verification window.' >&2
-            exit 1
-          fi
-
-      - name: Record live document verification
-        shell: bash
+      - name: Record verified correction
         env:
           SOURCE_SHA: ${{ steps.publish.outputs.source_sha }}
         run: |
@@ -211,7 +139,6 @@ jobs:
           - Interview thesis: 2 pages; resume: 2; cover letter: 1; 120-day plan: 2; role alignment: 1.
           - All eight remaining PDF pages passed the page-use threshold with no overflow.
           EOF
-
           git add campaign-audit.md
           git commit -m 'Record verified campaign document correction'
           git push origin HEAD:main
