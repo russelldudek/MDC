@@ -1,0 +1,7 @@
+15008 .publication/mdc-doc-correction.tar.gz
+abd9dacf0b9c0519222f5772cc3cb484582af168ac4c74df2c851eef51238625  .publication/mdc-doc-correction.tar.gz
+
+gzip: .publication/mdc-doc-correction.tar.gz: unexpected end of file
+gzip=invalid
+00000000: 1f8b 0800 0000 0000 0003 ec5b 7990 1cd5  ...........[y...
+00000000: ef71 f7f9 64fb fcfc a557 a8c4 00a0 2800  .q..d....W....(.
